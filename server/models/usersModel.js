@@ -12,7 +12,7 @@ const UserSchema = new Schema({
         required: true,
         trim: true,
     },
-    middlename: {
+    middleName: {
         type: String,
         default: '',
         trim: true,

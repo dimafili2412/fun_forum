@@ -1,9 +1,12 @@
+/*
+    TODO: Write logs to file
+*/
 const log = {
-    info: (message) => {
-        console.log(message);
+    info: (...messages) => {
+        messages.forEach((message) => console.log(message));
     },
-    error: (message) => {
-        console.error(message);
+    error: (...messages) => {
+        messages.forEach((message) => console.error(message));
     },
 };
 
