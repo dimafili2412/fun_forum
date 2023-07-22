@@ -6,8 +6,8 @@ const topicsRouter = express.Router();
 
 topicsRouter.get('/', getAllTopics);
 topicsRouter.get('/:id', getTopicById);
-topicsRouter.post('/', postTopic);
-topicsRouter.patch('/:id', updateTopic);
-topicsRouter.delete('/:id', deleteTopic);
+topicsRouter.post('/', auth, postTopic);
+topicsRouter.patch('/:id', auth, updateTopic);
+topicsRouter.delete('/:id', auth, deleteTopic);
 
 module.exports = topicsRouter;

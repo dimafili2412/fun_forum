@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    firstName: {
+    first_name: {
         type: String,
         required: true,
         trim: true,
     },
-    lastName: {
+    last_name: {
         type: String,
         required: true,
         trim: true,
     },
-    middleName: {
+    middle_name: {
         type: String,
         default: '',
         trim: true,
@@ -24,6 +24,12 @@ const UserSchema = new Schema({
         match: RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
         lowercase: true,
         trim: true,
+    },
+    display_name: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true,
     },
     password: {
         type: String,

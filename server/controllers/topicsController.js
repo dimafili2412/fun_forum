@@ -1,6 +1,7 @@
 const Topic = require('../models/topicsModel');
 const log = require('../logger/logger');
 
+//GET all topics
 exports.getAllTopics = async (req, res, next) => {
     try {
         const topics = await Topic.find();
@@ -11,6 +12,7 @@ exports.getAllTopics = async (req, res, next) => {
     }
 };
 
+//GET topic by id
 exports.getTopicById = async (req, res, next) => {
     try {
         const topic = await Topic.findById(req.params.id);
@@ -25,6 +27,7 @@ exports.getTopicById = async (req, res, next) => {
     }
 };
 
+//POST new topic
 exports.postTopic = async (req, res, next) => {
     const { title, description } = req.body;
     try {
@@ -38,6 +41,7 @@ exports.postTopic = async (req, res, next) => {
     }
 };
 
+//PATCH topic by id
 exports.updateTopic = async (req, res, next) => {
     const { id } = req.params;
     const { title, description, order } = req.body;
@@ -60,6 +64,7 @@ exports.updateTopic = async (req, res, next) => {
     }
 };
 
+//DELETE topic by id
 exports.deleteTopic = async (req, res, next) => {
     const { id } = req.params;
     try {
