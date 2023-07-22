@@ -2,13 +2,10 @@
   TODO: Implement validators
 */
 
-const validatePassword = (password) => {
+exports.validatePassword = (password) => {
     return true;
 };
 
-const validateEmail = (email) => {
+exports.validateEmail = (email) => {
     return true;
 };
-
-exports.validatePassword = validatePassword;
-exports.validateEmail = validateEmail;

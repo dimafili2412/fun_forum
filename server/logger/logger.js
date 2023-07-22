@@ -1,7 +1,7 @@
 /*
     TODO: Write logs to file
 */
-const log = {
+module.exports = {
     info: (...messages) => {
         messages.forEach((message) => console.log(message));
     },
@@ -9,5 +9,3 @@ const log = {
         messages.forEach((message) => console.error(message));
     },
 };
-
-module.exports = log;

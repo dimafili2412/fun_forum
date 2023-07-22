@@ -6,6 +6,7 @@ const connectToMongoDb = require('./DB/connectToMongoDB');
 
 //import routers
 const authRouter = require('./routers/authRouter');
+const topicsRouter = require('./routers/topicsRouter');
 
 const httpPort = process.env.HTTP_PORT || 3000;
 
@@ -15,11 +16,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //routers
-app.get('/', (req, res) => {
-    res.send('Test!');
-});
-
 app.use('/user', authRouter);
+app.use('/topics', topicsRouter);
 
 app.listen(httpPort, () => {
     log.info(`Server is running on http port ${httpPort}`);

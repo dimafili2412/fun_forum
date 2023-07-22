@@ -16,6 +16,10 @@ const TopicsSchema = new Schema({
         type: Number,
         default: 0,
     },
+    deleted: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 module.exports = Topic = mongoose.model('Topic', TopicsSchema);
