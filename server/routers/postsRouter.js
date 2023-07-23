@@ -4,7 +4,7 @@ const { getPostsByThreadId, postPost, deletePost, updatePost } = require('../con
 
 const postsRouter = express.Router();
 
-postsRouter.get('/:topic_id', getPostsByThreadId);
+postsRouter.get('/:thread_id', getPostsByThreadId);
 postsRouter.post('/', auth, postPost);
 postsRouter.delete('/:id', auth, deletePost);
 postsRouter.patch('/:id', auth, updatePost);

@@ -9,6 +9,7 @@ const authRouter = require('./routers/authRouter');
 const topicsRouter = require('./routers/topicsRouter');
 const threadsRouter = require('./routers/threadsRouter');
 const postsRouter = require('./routers/postsRouter');
+const commentsRouter = require('./routers/commentsRouter');
 
 const httpPort = process.env.HTTP_PORT || 3000;
 
@@ -22,6 +23,7 @@ app.use('/user', authRouter);
 app.use('/topics', topicsRouter);
 app.use('/threads', threadsRouter);
 app.use('/posts', postsRouter);
+app.use('/comments', commentsRouter);
 
 app.listen(httpPort, () => {
     log.info(`Server is running on http port ${httpPort}`);
