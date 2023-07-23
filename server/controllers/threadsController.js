@@ -1,4 +1,5 @@
 const Thread = require('../models/threadsModel');
+const Topic = require('../models/topicsModel');
 const log = require('../logger/logger');
 
 const defaultPageSize = 10;
@@ -41,7 +42,7 @@ exports.deletedThread = async (req, res, next) => {
     try {
         const deletedThread = await Thread.findByIdAndUpdate(
             id,
-            { deleted: true, deleted_by_user_id: req.user.id, deleted_date: Date.now() },
+            { deleted: true, deleted_by_user_id: req.user.id, deleted_by_user_display_name: user.display_name, deleted_date: Date.now() },
             { new: true }
         );
         res.status(200).json(deletedThread);
@@ -51,4 +52,39 @@ exports.deletedThread = async (req, res, next) => {
     }
 };
 
-exports.updateThread = async (req, res, next) => {};
+// UPDATE a thread by id
+exports.updateThread = async (req, res, next) => {
+    const { id } = req.params;
+    const { title, body, topic_id } = req.body;
+    // If topic_id was passed make sure such topic exists before updating
+    if (topic_id) {
+        try {
+            const topic = await Topic.findById(topic_id);
+            if (!topic) {
+                log.error(`Topic: topic_id: ${topic_id} was not found, failed to update thread id: ${id}`);
+                return res.status(400).json({ message: 'Topic does not exist' });
+            }
+        } catch (err) {
+            log.error(`Error while searching for topic_id: ${topic_id} when updating thread id: ${id}`, err);
+            return res.status(500).json({ message: err.message });
+        }
+    }
+    // Check if at least one of title, body or topic_id was provided for update
+    if (!title && !body && !topic_id) {
+        log.error(`Updatring thread id: ${id} failed because no fields were provided`);
+        return res.status(400).json({ message: 'No fields to update were provided' });
+    }
+    let updates = {
+        ...(title && { title }),
+        ...(body && { body }),
+        ...(topic_id && { topic_id }),
+        edited_date: Date.now(),
+    };
+    try {
+        const updatedThread = await Thread.findByIdAndUpdate(id, updates, { new: true });
+        res.status(200).json(updatedThread);
+    } catch (err) {
+        log.error(`Error updating thread id: ${id}`, err);
+        res.status(500).json({ message: err.message });
+    }
+};
