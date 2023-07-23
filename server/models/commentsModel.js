@@ -17,10 +17,23 @@ const CommentsSchema = new Schema({
     //soft delete
     deleted: {
         type: Boolean,
-        default: falses,
+        default: false,
     },
+    deleted_date: {
+        type: Date,
+    },
+    deleted_by_user_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    //
     created_by_user_id: {
         type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+    created_by_user_display_name: {
+        type: String,
         ref: 'User',
         required: true,
     },
